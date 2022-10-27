@@ -1,0 +1,82 @@
+body{
+    background-color: black;
+}
+.section_1 a{
+    text-decoration: none;
+    color: white;
+}
+.learn a{
+text-decoration:none;
+color: white;
+font-size: 16px;
+}
+.sec-pro a{
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+}
+#service a{
+    text-decoration: none;
+}
+.login-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container form{
+    width: 90%;
+    max-width: 500px;
+    padding: 50px 30px 20px;
+    background: rgba(255, 255, 255, 0.024);
+    border-radius: 4px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+
+}
+.input-group label{
+    flex-basis: 50%;
+    color: white;
+    font-size: 13px;
+}
+.input-group input, .input-group textarea{
+    flex-basis: 100%;
+    background: transparent;
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    border: 1px solid rgba(243, 231, 12, 0.263);
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+::placeholder{
+    font-size: 14px;
+}
+form button{
+    border-radius: 5px;
+    border: none;
+    padding: 10px 60px;
+    outline: 0;
+    cursor: pointer;
+    display: block;
+    margin: 30px auto 10px;
+}
+.input-group span{
+    position: absolute;
+    top: 20px;
+    left:10px;
+    color: rgb(255, 242, 0);
+    font-size: 10px;
+
+}
+a.fa{
+    font-size: 20px;
+    
+}
+
+a{
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+
+section.footer a{
+    padding:50px;
+}
