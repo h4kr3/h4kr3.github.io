@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
+
 </head>
 
 <body>
@@ -50,7 +51,7 @@
             <h1>Programmer. <span class="text-warning">Bug Hunter.</span></h1>
             <p class="lead">“Writing code is one of the most <span class="text-warning">peaceful things one can
                 do</span> if the intentions are right.”</p>
-            <a href="#home2">Get started&rarr;</a>
+            <a href="#page2">Get started&rarr;</a>
           </div>
           <img class="img-fluid w-50" src="bg1.png" alt="">
         </div>
@@ -188,7 +189,7 @@
               <h3 class="card-title mb-2">Web Designing</h3>
               <p class="card-text">75% of web users judge a company's credibility based on their website design. I will
                 make sure that your website design stands apart from competitors.</p>
-              <a href="#" class="border p-2" target="_blank"> Get Service &#128072;</a>
+              <a href="#page5" class="border p-2" target=""> Get Service &#128072;</a>
 
             </div>
           </div>
@@ -202,7 +203,7 @@
               <h3 class="card-title mb-2"> Bug Hunting</h3>
               <p class="card-text">I received a vulnerability report and my organization needs assistance with next
                 steps.</p>
-              <a href="#" class="border p-2" target="_blank">Get help &#128072;</a>
+              <a href="#page5" class="border p-2" target="">Get help &#128072;</a>
 
 
             </div>
@@ -239,12 +240,11 @@
 
       <div class="input-group">
         <label>Your Message</label>
-        <textarea rows="5" placeholder="Enter your message""id=" contact-message"
-          onkeyup="validateMessage()"></textarea>
+        <textarea rows="5" placeholder="Enter your message" id="contact-message" onkeyup="validateMessage()"></textarea>
         <span id="message-error"></span>
       </div>
 
-      <button class="bg-warning text-light">Submit</button>
+      <button class="bg-warning text-dark" onclick="return validateForm()"> <span id="submit-error" class="text-danger"></span> Submit</button>
 
     </form>
   </div>
@@ -253,6 +253,7 @@
   <!-- contact -->
   <section id="page6">
     <div class="container text-center">
+      <h5 class="text-warning fs-6 mt-5">Social profiles</h5>
       <a href="https://www.instagram.com/mr_krishn4n/" class="bi bi-instagram" target="_blank "> InstaGram</a><br>
       <a href="https://github.com/h4kr3" class=" bi bi-github" target="_blank"> Github</a>
     </div>
