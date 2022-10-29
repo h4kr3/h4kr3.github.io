@@ -1,3 +1,7 @@
+
+
+
+
 var nameError=document.getElementById('name-error');
 var phoneError=document.getElementById('phone-error');
 var emailError=document.getElementById('email-error');
@@ -36,6 +40,7 @@ function validatePhone() {
     
     }
 
+
     }
     function validateEmail() {
         var email=document.getElementById('contact-phone').value;
@@ -45,7 +50,7 @@ function validatePhone() {
             return false;
         }
         if(!email.match(/^[A-Za-z]\._\-[0-9]*[@][A-Za-z]*[\.]{2;4}$/)) {
-            phoneError.innerHTML="Email invalid";
+            emailError.innerHTML="Email invalid";
             return false;
         
         }

@@ -80,3 +80,55 @@ a{
 section.footer a{
     padding:50px;
 }
+
+
+
+
+/* border */
+
+
+#page3{
+    border-bottom: 8px solid #222;
+    border-top: 8px solid #222;
+}
+
+#page4{
+    border-bottom: 8px solid #222;
+    
+}
+
+
+
+/* contact */
+#skill{
+border-top: 8px solid #222;
+margin-bottom: 70px;
+}
+
+#page6 a{
+    text-decoration: none;
+    color: #fff
+}
+
+#page6{
+    padding-bottom: 100px;
+    border-bottom: 8px solid #222;
+}
+
+footer a{
+    text-decoration:none;
+    color: #fff;
+    padding-right: 20px;
+}
+footer{
+    margin-bottom: 100px;
+}
+
+#navbar a{
+    text-decoration: none;
+    color: #fff;
+    padding-left: 20px;
+}
+#navbar ul li{
+    list-style: none;
+}
