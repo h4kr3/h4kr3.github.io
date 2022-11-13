@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Yanone+Kaffeesatz&display=swap');
+
+div h2{
+    font-family: 'Pacifico', cursive;
+}
+.center-div{
+    padding-top: 15%;
+}
+.center-div{
+    padding-top: 15%;
+}
+.center-div-1{
+    padding-top: 5%;
+}
+
+.btn.btn-success{
+    padding: .4em 2em;
+}
+
+form{
+    padding: 0 3em;
+}
+
+#login .title > span{
+    font-size: .8em;
+}
+div a{
+text-align: none;
+color: #222;
+padding: 5px 10px;
+border: solid 1px #222;
+}
