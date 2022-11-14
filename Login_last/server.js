@@ -1,6 +1,7 @@
 const express = require("express");
 const path=require("path");
 const app = express();
+const sessions = require("express-session");
 
 //credential defined here
 const  credential = {
@@ -21,7 +22,6 @@ app.use(express.json());
 //checking data is string,array or object for converting
 app.use(express.urlencoded({ extended: true }))
 
-var sessions = require("express-session");
 app.use((req, res, next) => {
     res.set('Cache-Control', 'no-cache, private,no-store,must-revalidate,max-stale=0,pre-check=0')
     next()
@@ -44,7 +44,7 @@ app.get("/",NotLogIn, (req, res) => {
 //athutication checking
 app.post("/login", (req, res) => {
     if(req.body.email == credential.email && req.body.password == credential.password){
-        req.session.userLoggedIn=true;
+        req.session.userAuthorized=true;
         req.session.user = req.body.email;
         res.redirect('/home');
         //res.end("Login Successful...!");
@@ -63,27 +63,26 @@ app.get("/login",NotLogIn, (req, res) => {
 
 //if user didnt log in and try to go directly to homepage it will prevent here
 app.get("/home",isLogIn, (req, res) => {
-    res.render('home', {user : req.session.user})
+    res.render('home', {title: "Home Page",user : req.session.user})
         //console.log(req.session.user);
 
 })
 
 //logout
 app.get('/logout',isLogIn,(req,res)=>{
-    //req.session.userLoggedIn = false
     req.session.destroy(function(err){
         if(err){
             console.log(err);
             res.send("Error")
         }else{
             //printing the logout info in login page
-            res.render('login', { title: "Express", logout : "logout Successfull"})
+            res.render('login', { title: "Logout", logout : "logout Successfull"})
         }
     })
 })
 //function for checking user logged in or out
 function isLogIn(req,res,next){
-    if(req.session.userLoggedIn){
+    if(req.session.userAuthorized){
         next()
     }else{
         res.redirect('/login')
@@ -91,7 +90,7 @@ function isLogIn(req,res,next){
 }
 //function for checking if user log in the session is true it will not redirect to login
 function NotLogIn (req,res,next){
-    if(req.session.userLoggedIn){
+    if(req.session.userAuthorized){
         res.redirect('/home')
    }else{
        next()
@@ -101,5 +100,3 @@ function NotLogIn (req,res,next){
 
 app.listen(3000,() => {
     console.log('listening to the server on http://localhost:3000');})
-
-    console.log(__dirname)
