@@ -1,0 +1,42 @@
+<div class="text-center mt-5" id="login">
+  <div class=" py-5">
+    <div class="title pb-5">
+      <h2>Users</h2>
+
+      <h5 class="bg-success text-white mt-3">{{invalid}}</h5>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Password</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each data}}
+        <tr>
+            
+          <th scope="row">{{this._id}}</th>
+          <td>{{this.name}}</td>
+          <td>{{this.email}}</td>
+          <td>{{this.password}}</td>
+            <td><a href="/udelete?userId={{this._id}}" class="btn btn-danger">Delete</a></td>
+           
+        </tr>
+         {{/each}}
+        
+      </tbody>
+    </table>
+
+    <a href="/admin_user_signup" class="btn btn-warning">Create new user</a>
+
+    <a href="/alogout" class="btn btn-warning">Sign out</a>
+
+     <a href="/adminhome" class="btn btn-success">back</a>
+
+  </div>
+</div>

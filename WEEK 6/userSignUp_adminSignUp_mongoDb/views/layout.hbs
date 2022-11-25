@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>document</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+</head>
+<body>
+  {{{body}}}
+
+
+
+
+
+<script>
+  var validError=document.getElementById('valid-error');
+  var emailError=document.getElementById('email-error');
+  var passError=document.getElementById('pass-error');
+  var submitError=document.getElementById('submit-error');
+
+    function validateName() {
+        var name=document.getElementById('contact-name').value;
+        
+        if(name.length==0) {
+            validError.innerHTML="Name is required";
+            return false;
+        }
+        if(!name.match(/^[A-Za-z]*\s{1}[A-Za-z]*$/)) {
+            validError.innerHTML="write full name";
+            return false;
+        
+        }
+        validError.innerHTML= '<i class="bi bi-check-all"></i>';
+        return true;
+        }
+
+
+     function validateEmail() {
+        var email=document.getElementById('contact-email').value;
+        
+        if(email.length==0) {
+            emailError.innerHTML="Email is required";
+            return false;
+        }
+        if(!email.match(/^[A-Za-z\._\-[0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) 
+        {
+            emailError.innerHTML="Enter full email address";
+            return false;
+        
+        }
+        emailError.innerHTML='<i class="bi bi-check-all"></i>';
+        return true;
+    
+        }
+
+
+
+        function validatePassword() {
+        var password=document.getElementById('password-email').value;
+        
+        if(password.length==0) {
+            passError.innerHTML="Password Required";
+            return false;
+        }
+        if(!password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)) 
+        {
+            passError.innerHTML="Minimum eight characters, at least one letter and one number";
+            return false;
+        
+        }
+        passError.innerHTML='<i class="bi bi-check-all"></i>';
+        return true;
+    
+        }
+   
+    function validateForm() {
+        if(!validateName()||!validateEmail()||!validatePassword()){
+            submitError.style.display="block";
+            submitError.innerHTML='PLEASE FILL THE FORM';
+            setTimeout(function(){submitError.style.display="none";},3000);
+            return false;
+        }
+        
+
+    }
+
+    function validateForm2() {
+        if(!validateEmail()||!validatePassword()){
+            submitError.style.display="block";
+            submitError.innerHTML='PLEASE FILL THE FORM';
+            setTimeout(function(){submitError.style.display="none";},3000);
+            return false;
+        }
+        
+
+    }
+
+    
+</script>
+
+
+
+
+</body>
+</html>

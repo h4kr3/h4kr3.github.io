@@ -1,0 +1,47 @@
+<div class="text-center center-div" id="login">
+  <div class="container w-50 border py-5">
+    <div class="title pb-5">
+      <h2 class="font-weight-bold">Add user</h2>
+      <h5 class="bg-danger text-white mt-3" >{{invalid}}</h5>
+    </div>
+    <form action="/ucreate" method="post" class="pt-3" id="reg-form">
+      <div class="form-group">
+        <input
+          type="name"
+          class="form-control"
+          placeholder="name"
+          name="name"
+          id="contact-name" onkeyup="validateName()"
+        />
+        <span id="valid-error" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <input
+          type="email"
+          class="form-control"
+          placeholder="email"
+          name="email"
+          id="contact-email" onkeyup="validateEmail()"
+        />
+        <span id="email-error" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <input
+          type="password"
+          class="form-control"
+          name="password"
+          placeholder="password"
+           id="password-email" onkeyup="validatePassword()"
+        />
+        <span id="pass-error" class="text-danger"></span>
+      </div>
+
+      <span id="submit-error" class="text-danger mb-3"></span>
+      <button type="submit" class="btn btn-warning"  onclick="return validateForm()"> Submit</button>
+        <a href="/adminhome" class="btn btn-success">back</a>
+
+    </form>
+  </div>
+</div>
+
+
