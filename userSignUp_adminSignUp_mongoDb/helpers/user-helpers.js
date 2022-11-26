@@ -145,6 +145,17 @@ module.exports = {
                 resolve({status:false})
                 } 
     })
-  }
+  },
+  searchUser: (userData) => {
+    return new Promise(async (resolve, reject) => {
+        console.log(userData.search+'here i am ')
+        let user = await db.get().collection(collection.USER_COLLECTION).find({ name: userData.search }).toArray();
+        if (user) {
+            resolve(user)
+        } else {
+            resolve({ data: false });
+        }
+    })
+}
   
 };

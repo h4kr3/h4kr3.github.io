@@ -1,0 +1,24 @@
+<section>
+    <div class="container">
+        {{#each userData}}
+        <div class="card text-center mt-5">
+            <div class="card-header h3">
+                {{this.name}}
+            </div>
+            <div class="card-body">
+                <h6 class="card-title">{{this.email}}</h6>
+                <a
+                href="/uedit1/{{this._id}}"
+                class="btn btn-success"
+              >Edit</a>
+                {{!-- <a
+                href="/udelete?userId={{this._id}}"
+                class="btn btn-danger"
+              >Delete</a> --}}
+               <a href="/udelete?userId={{this._id}}" class="btn btn-danger ms-5"
+                    onclick="return confirm('Are you want to delete {{this.name}}')">Delete</a>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</section>

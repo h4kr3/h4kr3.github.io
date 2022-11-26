@@ -1,3 +1,26 @@
+<header>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <h2>Admin</h2>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              
+                <form action="/search" method="post" class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" name="search">
+                    <button class="btn btn-outline-success">Search</button>
+                </form>
+
+            </div>
+        </div>
+    </nav>
+</header>
+
+{{!-- navbar end here --}}
+
+
+
+
+
 <div class="text-center mt-5" id="login">
   <div class="py-5">
     <div class="title pb-5">
@@ -10,19 +33,20 @@
     </div>
     <a href="/admin_user_signup" class="btn btn-warning mb-5" style="margin-right:15px ;">Create new user</a>
 
+
     <a href="/alogout" class="btn btn-warning mb-5" style="margin-right:15px ;">Sign out</a>
 
     <a href="/adminhome" class="btn btn-success mb-5" style="margin-right:15px ;">back</a>
      <a href="/admin_user_view" class="btn btn-success mb-5" style="margin-right:15px ;">Refresh</a>
 
-    <table class="table">
+    <table class="table" id="usersTable">
       <thead>
         <tr>
           <th scope="col">Id</th>
           <th scope="col">Name</th>
           <th scope="col">Email</th>
           <th scope="col">Password</th>
-          <th scope="col"></th>
+          <th scope="col">Options</th>
         </tr>
       </thead>
       <tbody>
@@ -36,11 +60,8 @@
             <td><a
                 href="/uedit1/{{this._id}}"
                 class="btn btn-success"
-              >Edit</a></td>
-            <td><a
-                href="/udelete?userId={{this._id}}"
-                class="btn btn-danger"
-              >Delete</a></td>
+              >Edit</a> <a href="/udelete?userId={{this._id}}" class="btn btn-danger ms-5"
+                    onclick="return confirm('Are you want to delete {{this.name}}')">Delete</a></td>
 
           </tr>
         {{/each}}
@@ -52,3 +73,4 @@
 
   </div>
 </div>
+

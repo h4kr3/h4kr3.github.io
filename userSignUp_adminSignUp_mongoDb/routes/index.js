@@ -193,6 +193,28 @@ router.post("/uedit",adminloggedout,async(req, res) => {
 })
 
 
+
+
+
+///////////search user
+
+router.post('/search', (req, res) => {
+  userHelpers.searchUser(req.body).then((userData) => {
+    console.log(userData);
+    if (userData[0]) {
+      res.render('admin_user_search', { userData })
+    }
+    else {
+      res.send('<h1>No user Found</h1>');
+    }
+  })
+})
+
+
+
+
+
+
 ///////////////middle wares
 
 function loggedout(req, res, next) {
