@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser')
 var logger = require('morgan');
 var hbs = require('express-handlebars');
+
 // var fileUpload = require('express-fileupload')
 var db = require('./config/connection')
 var session = require('express-session')
@@ -12,7 +13,12 @@ var session = require('express-session')
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
 
+
 var app = express();
+
+//paypal
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

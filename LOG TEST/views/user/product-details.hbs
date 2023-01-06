@@ -10,9 +10,18 @@
 
         <div class="main1-3">
             <h1 class="text-uppercase span1 mb-2">{{product.productName}}</h1>
-            <h1 class="text-uppercase span1 mt-5">RS. {{product.price}}.00</h1>
+           
+            {{#if product.offer}}
+             <h1 class="text-uppercase span1 mt-5" style="text-decoration:line-through;">RS. {{product.price}}.00</h1><span class="text-light" style="font-weight:800;font-size:24px;">{{product.offer}}% </span><span class="text-light" style="font-weight:600;">OFFER AVAILABLE GRAB IT NOW</span><br>
+             <h1 class="text-uppercase span1">RS. {{product.offerPrice}}.00</h1>
+            {{else}}
+            <h1 class="text-uppercase span1 mt-5">RS. {{product.offerPrice}}.00</h1>
+            {{/if}}
 
-            <button onclick="addToCart('{{product._id}}') "class="btn addtocart text-light mt-3">ADD TO CART</button>
+            <button onclick="addToCart('{{product._id}}') "class="btn addtocart text-light mt-3">ADD TO CART</button><br>
+            <button onclick="addToWish('{{product._id}}') "class="btn addtocart text-light mt-3" id="wishbtn">ADD TO WISH</button>
+            <button onclick="deleteWish('{{this.product._id}}')"
+                                                class="btn  addtocart text-light mt-3" id="dltbtnwish" style="visibility:hidden">REMOVE FROM WISH</button>
             <h1 class="text-uppercase span1"></h1>
         </div>
     </div>

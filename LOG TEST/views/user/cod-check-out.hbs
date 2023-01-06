@@ -24,25 +24,25 @@
                 </div>
                 <div class="form-group mt-2">
                     <label for="address">ADDRESS</label>
-                    <input type="text" class="form-control " placeholder="ADDRESS" name="address"
+                    <input type="text" class="form-control " value="{{user.address.[0].address}}" name="address"
                         id="contact-address" onkeyup="validateAddress()" />
                     <span id="address-error" class="text-white"></span>
                 </div>
                 <div class="form-group mt-2">
                     <label for="country">COUNTRY</label>
-                    <input type="text" class="form-control " placeholder="COUNTRY" name="country"
+                    <input type="text" class="form-control " value="{{user.address.[0].country}}" name="country"
                         id="contact-address1" onkeyup="validateAddress()" />
                     <span id="address-error1" class="text-white"></span>
                 </div>
                 <div class="form-group mt-2">
                     <label for="state">STATE</label>
-                    <input type="text" class="form-control " placeholder="STATE" name="state" id="contact-address2"
+                    <input type="text" class="form-control "value="{{user.address.[0].state}}" name="state" id="contact-address2"
                         onkeyup="validateAddress()" />
                     <span id="address-error2" class="text-white"></span>
                 </div>
                 <div class="form-group mt-2">
                     <label for="pincode">PIN CODE</label>
-                    <input type="text" class="form-control " placeholder="PIN CODE" name="pincode"
+                    <input type="text" class="form-control " value="{{user.address.[0].pincode}}" name="pincode"
                         id="contact-address3" onkeyup="validateAddress()" />
                     <span id="address-error3" class="text-white"></span>
                 </div>

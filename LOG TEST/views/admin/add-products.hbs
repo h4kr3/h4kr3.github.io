@@ -16,7 +16,8 @@
                         <label for="category">Select Category</label><br>
                         <select class="custom-select tm-select-accounts" id="category" name="category">
                             {{#each category}}
-                            <option value="{{this._id}}" name="category">{{this.category}}</option>
+                            <option value="{{this._id,}}" name="category">{{this.category}}</option>
+                            <input type="hidden" value="{{this.categoryOffer}}" name="catoffery">
                              {{/each}}
                         </select>
                     </div>

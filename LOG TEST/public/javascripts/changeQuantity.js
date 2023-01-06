@@ -91,3 +91,31 @@ function orderDelivered(orderId){
   })
 }
 
+
+function returnOrder(orderId){
+
+  $.ajax({
+    url:'/return-order/'+orderId,
+    method:'get',
+    success:(response)=>{
+      if(response){
+        location.reload()
+      }
+    }
+  })
+}
+
+function returnOrderRecieved(orderId){
+
+  $.ajax({
+    url:'/admin/return-order-recieved/'+orderId,
+    method:'get',
+    success:(response)=>{
+      if(response){
+        location.reload()
+      }
+    }
+  })
+}
+
+

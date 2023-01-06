@@ -28,9 +28,12 @@ router.get('/', adminloggedin,function(req, res, next) {
   res.render('admin/index',{adminlogin:true})
 });
 
-router.get('/admin-land',adminloggedout,(req,res)=>{
-  res.render('admin/admin-land',{admin:true})
-
+router.get('/admin-land',adminloggedout,async(req,res)=>{
+  if(req.session.adminLoggedIn){
+    let totalAmount = await adminHelper.getTotalAmount()
+    let data = await adminHelper.dashBoard()
+    res.render('admin/admin-land',{admin:true,totalAmount,data})
+  }
 })
 
 router.get('/products',adminloggedout,async(req,res)=>{
@@ -115,7 +118,7 @@ router.post('/asignin',adminloggedin,(req,res)=>{
     if(response.status){
       req.session.adminLoggedIn = true
       req.session.admin = response.admin
-      res.render('admin/admin-land',{admin:true})
+      res.redirect('/admin/admin-land')
     }else{
       res.render('admin/index',{title:'LogIn',invalid:"Incorrect Username or Password" ,adminlogin:true})
     }
@@ -321,7 +324,7 @@ router.get('/block-user/:id', (req, res) => {
 
 })
 
-router.get('/product-list/:id',function(req, res, next) {
+router.get('/product-list/:id',adminloggedout,function(req, res, next) {
   
   productHelper.getProductByCat(req.params.id).then((products)=>{
     
@@ -330,17 +333,55 @@ router.get('/product-list/:id',function(req, res, next) {
   })
 })
 
-router.get('/orders',async(req,res)=>{
+router.get('/orders',adminloggedout,async(req,res)=>{
   let orders = await userHelpers.getAllOrders()
   res.render('admin/orders',{orders,admin:true})
 })
 
-router.get('/view-orderAdmin/:id',async(req,res)=>{
+router.get('/view-orderAdmin/:id',adminloggedout,async(req,res)=>{
   let products = await userHelpers.getOrderProduct(req.params.id)
   res.render('admin/view-order',{products,admin:true})
 })
 
 
+router.get('/sales-repo',adminloggedout,async(req,res)=>{
+  let deliveredReport = await adminHelper.getDeliveredReport()
+  res.render('admin/sales-report',{admin:true,deliveredReport})
+})
+
+router.get('/coupon',adminloggedout,async(req,res)=>{
+let category = await productHelper.getAllCategory()
+let product = await productHelper.getAllProducts()
+res.render('admin/coupon',{category,product})
+})
+
+router.post('/add-catOffer',(req,res)=>{
+  productHelper.addcatOffer(req.body).then(()=>{
+    res.redirect('/admin/coupon')
+  })
+})
+router.post('/add-prodOffer',(req,res)=>{
+  productHelper.addProdOffer(req.body).then(()=>{
+    res.redirect('/admin/coupon')
+  })
+})
+
+router.get('/delete-prod-offer/:id',(req,res)=>{
+  productHelper.deleteOffer(req.params.id).then(()=>{
+    res.json({status:true})
+  })
+})
+router.get('/delete-cat-offer/:id',(req,res)=>{
+  productHelper.deleteCatOffer(req.params.id).then(()=>{
+    res.json({status:true})
+  })
+})
+
+router.get('/return-order-recieved/:id',(req,res)=>{
+  userHelpers.returnOrderRecieved(req.params.id).then(()=>{
+    res.json({status:true})
+  })
+})
 
 function adminloggedin(req,res,next){
   if(req.session.adminLoggedIn){

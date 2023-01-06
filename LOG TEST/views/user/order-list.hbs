@@ -22,18 +22,22 @@
           <th scope="col" class="text-uppercase text-center">Options</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="">
         {{#each orders}}
-          <tr>
-            <td class="text-uppercase text-center">{{this.date}}</td>
-            <td class="text-uppercase text-center" style="font-weight:800;color:rgb(255, 9, 218);font-size:17px">RS. {{this.totalAmount}}.00</td>
-            <td class="text-uppercase text-center">{{this.deliveryDetails.address}}</td>
-            <td class="text-uppercase text-center" style="font-weight:800;color:rgb(255, 255, 255);font-size:17px">{{this.paymentMethod}}</td>
-            <td class="text-uppercase text-center" style="font-weight:800;color:rgb(255, 255, 255);font-size:17px">{{this.status}}</td>
-            <td class="text-uppercase text-center" ><a href="/view-order/{{this._id}}" class="btn btn-warning">VIEW ORDER</a>
-            {{#if btn}}
-            <button class="btn btn-warning text-light mt-3" onclick="cancelOrder('{{this._id}}')" id="orderCancelBtn{{this._id}}">CANCEL</button>
+          <tr class="">
+            <td class="text-uppercase text-center ">{{this.date}}</td>
+            <td class="text-uppercase text-center " style="font-weight:800;color:rgb(255, 9, 218);font-size:17px">RS. {{this.totalAmount}}.00</td>
+            <td class="text-uppercase text-center ">{{this.deliveryDetails.address}}</td>
+            <td class="text-uppercase text-center " style="font-weight:800;color:rgb(255, 255, 255);font-size:17px">{{this.paymentMethod}}</td>
+            <td class="text-uppercase text-center " style="font-weight:800;color:rgb(255, 255, 255);font-size:17px">{{this.status}}</td>
+            <td class="text-uppercase text-center" ><a href="/view-order/{{this._id}}" class="btn btn-warning mt-3 mb-3">VIEW ORDER</a>
+            {{#if return}}
+            <button class="btn btn-warning text-dark " onclick="returnOrder('{{this._id}}')">RETURN</button>
             {{/if}}
+            {{#if btn}}
+            <button class="btn btn-warning text-light mt-3 mb-3" onclick="cancelOrder('{{this._id}}')" id="orderCancelBtn{{this._id}}">CANCEL</button>
+            {{/if}}
+            
 
             
           </td>
