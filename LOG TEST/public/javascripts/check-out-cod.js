@@ -15,6 +15,12 @@ $("#checkout-form").submit((e)=>{
                   window.location.href = "/order-list";
               })
             }
+            else if(res.error){
+                swal({
+                    title: 'SELECT PAYMENT METHOD',
+                    type: 'error'
+                  })
+            }
             else{
                 razorpayPayment(res.response)
             }

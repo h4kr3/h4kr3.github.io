@@ -297,14 +297,13 @@ module.exports = {
                 userId: ObjectId(order.userId),
                 paymentMethod: order.paymentMethod,
                 products: product.products,
-                totalAmount: total,
-                status: status,
+                totalAmount: order.total,
+                status:status,
                 date: new Date(),
                 btn: true,
 
             }
-            console.log(oderObj, status);
-            if (oderObj.paymentMethod == 'cod') {
+            if (oderObj.paymentMethod === 'cod') {
                 db.get().collection(collection.ORDER_COLLLECTION).insertOne(oderObj).then((response) => {
                     db.get().collection(collection.CART_COLLECTION).deleteOne({ user: ObjectId(order.userId) })
                     resolve(response)
@@ -312,6 +311,7 @@ module.exports = {
             }
             else {
                 db.get().collection(collection.ORDER_COLLLECTION).insertOne(oderObj).then((response) => {
+                    console.log(response);
                     resolve(response)
                 })
             }
@@ -633,10 +633,24 @@ module.exports = {
         })
     },
     returnOrderRecieved: (orderId) => {
-        return new Promise((resolve, reject) => {
-            db.get().collection(collection.ORDER_COLLLECTION).updateOne({ _id: ObjectID(orderId) }, { $set: { status: 'Product Arrieved To Seller', return:false,productReturning:false} }).then(() => {
-                resolve()
-            })
+        return new Promise(async(resolve, reject) => {
+           await db.get().collection(collection.ORDER_COLLLECTION).updateOne({ _id: ObjectID(orderId) }, { $set: { status: 'Product Arrieved To Seller', return:false,productReturning:false} })
+
+           let wallet = await db.get().collection(collection.ORDER_COLLLECTION).findOne({_id:ObjectID(orderId)})
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectID(wallet.userId)})
+            if(user.wallet){
+                console.log('234567897654');
+                user.wallet=user.wallet+wallet.totalAmount
+                await db.get().collection(collection.USER_COLLECTION).updateOne({_id:ObjectID(wallet.userId)},{$set:{wallet:parseInt(user.wallet),walletUpdate:new Date}}).then(()=>{
+                    resolve()
+                })
+            }
+            else{
+                await db.get().collection(collection.USER_COLLECTION).updateOne({_id:ObjectID(wallet.userId)},{$set:{wallet:parseInt(wallet.totalAmount),walletUpdate:new Date}}).then(()=>{
+                    resolve()
+                })
+            }
+          
         })
     }
 };

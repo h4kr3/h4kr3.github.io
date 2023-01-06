@@ -231,17 +231,18 @@ router.get('/cod-check-out', verifyloggedin, async (req, res) => {
 
 router.post('/place-order', async (req, res) => {
   let products = await userHelpers.getCartProductList(req.body.userId)
-  let total = await userHelpers.getTotalAmount(req.body.userId)
-
-
-  userHelpers.placeOrder(req.body, products, total).then((response) => {
+console.log(req.body);
+  userHelpers.placeOrder(req.body, products).then((response) => {
     if (req.body['paymentMethod'] == 'cod') {
       res.json({ cod: true })
     }
-    else {
-      userHelpers.generateRazorpay(response.insertedId, total).then((response) => {
+    else if(req.body['paymentMethod'] == 'online') {
+      userHelpers.generateRazorpay(response.insertedId,req.body.total).then((response) => {
         res.json({ response })
       })
+    }
+    else{
+        res.json({error:true})
     }
   })
 
@@ -383,6 +384,16 @@ router.get('/return-order/:id', (req, res) => {
   })
 })
 
+
+router.post('/grabCoupon',verifyloggedin,(req,res)=>{
+  productHelper.applyCoupon(req.body).then(async(response)=>{
+    let total = await userHelpers.getTotalAmount(req.session.user._id)
+    let user = await userHelpers.getUserDetails(req.session.user._id)
+    console.log(response.expire);
+
+   res.render('user/cod-check-out',{total,user,response,usersi: true})
+  })
+})
 
 function loggedin(req, res, next) {
   if (req.session.userLoggedIn) {

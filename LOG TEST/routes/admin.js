@@ -340,7 +340,7 @@ router.get('/orders',adminloggedout,async(req,res)=>{
 
 router.get('/view-orderAdmin/:id',adminloggedout,async(req,res)=>{
   let products = await userHelpers.getOrderProduct(req.params.id)
-  res.render('admin/view-order',{products,admin:true})
+  res.render('admin/view-order',{products,admin:true,orders})
 })
 
 
@@ -352,7 +352,8 @@ router.get('/sales-repo',adminloggedout,async(req,res)=>{
 router.get('/coupon',adminloggedout,async(req,res)=>{
 let category = await productHelper.getAllCategory()
 let product = await productHelper.getAllProducts()
-res.render('admin/coupon',{category,product})
+let coupon = await productHelper.listCoupon()
+res.render('admin/coupon',{category,product,coupon,admin:true})
 })
 
 router.post('/add-catOffer',(req,res)=>{
@@ -379,6 +380,18 @@ router.get('/delete-cat-offer/:id',(req,res)=>{
 
 router.get('/return-order-recieved/:id',(req,res)=>{
   userHelpers.returnOrderRecieved(req.params.id).then(()=>{
+    res.json({status:true})
+  })
+})
+
+router.post('/add-coupon',(req,res)=>{
+  productHelper.addCoupon(req.body).then(()=>{
+    res.redirect('/admin/coupon')
+  })
+})
+
+router.get('/delete-coupon-offer/:id',(req,res)=>{
+  productHelper.deleteCoupon(req.params.id).then(()=>{
     res.json({status:true})
   })
 })

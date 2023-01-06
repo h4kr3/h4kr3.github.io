@@ -99,7 +99,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
-                    <form action="/admin/add-prodOffer" method="post"
+                    <form action="/admin/add-coupon" method="post"
                         class="pt-3 d-flex flex-column justify-content-center align-items-center">
                         <div class="d-flex justify-content-center align-items-center main1-3">
                             <span class="span2">ADD COUPON</span>
@@ -138,6 +138,34 @@
     <div class="line-bg d-flex justify-content-center mt-5">
         <img src="/images/line1.png" alt="" />
     </div>
+</section>
+
+<section class="container mt-5">
+    <h3 class="text-uppercase text-light text-center" style="font-weight:800;">coupon</h3>
+    <table class="table table-dark text-center" style="max-width: 80%;margin: 0 auto;">
+        <thead>
+            <tr>
+                <th class="text-uppercase" scope="col">coupon code</th>
+                <th class="text-uppercase" scope="col">OFFER PERCENTAGE</th>
+                <th class="text-uppercase" scope="col">expiryDate</th>
+                <th class="text-uppercase" scope="col">option</th>
+
+            </tr>
+        </thead>
+        {{#each coupon}}
+        <tbody>
+            <tr>
+                <td class="text-uppercase" style="font-weight:800;">{{this.couponCode}}</td>
+
+                <td class="text-uppercase" style="font-weight:800;"> {{this.offerPercentage}}%</td>
+                <td class="text-uppercase" style="font-weight:800;"> {{this.expiryDate}}</td>
+                <td> <button onclick="deleteCouponCode('{{this._id}}') "
+                        class="btn addtocart text-light mt-3">DELETE</button></td>
+            </tr>
+        </tbody>
+        {{/each}}
+    </table>
+
 </section>
 
 <section class="container mt-5">

@@ -139,3 +139,24 @@ function deleteCatOffer(proId){
         }
     })
 }
+
+
+function deleteCouponCode(proId){
+    $.ajax({
+        url:'/admin/delete-coupon-offer/'+proId,
+        method:'get',
+        success:(response)=>{
+            if(response.status){ 
+                swal({
+                    title: "Delete the Offer!!!",
+                    type:'success',
+                    timer: 500
+                  });
+                  location.reload()
+            }
+            else{
+                alert('dfghj')
+            }
+        }
+    })
+}

@@ -148,97 +148,148 @@ module.exports = {
     },
     addcatOffer: (cat) => {
         return new Promise(async (resolve, reject) => {
-            await db.get().collection(collection.CATEGORY_COLLECTION).updateOne({_id:ObjectId(cat.category)},{$set:{categoryOffer:parseInt(cat.offerPercentage)}})
-            await db.get().collection(collection.PRODUCT_COLLECTION).updateMany({ category:cat.category},{$set:{categoryOffer:parseInt(cat.offerPercentage)}})
-            
-            let products = await db.get().collection(collection.PRODUCT_COLLECTION).find({category:cat.category}).toArray()
+            await db.get().collection(collection.CATEGORY_COLLECTION).updateOne({ _id: ObjectId(cat.category) }, { $set: { categoryOffer: parseInt(cat.offerPercentage) } })
+            await db.get().collection(collection.PRODUCT_COLLECTION).updateMany({ category: cat.category }, { $set: { categoryOffer: parseInt(cat.offerPercentage) } })
+
+            let products = await db.get().collection(collection.PRODUCT_COLLECTION).find({ category: cat.category }).toArray()
             console.log(products);
-            for (let i =0;i<products.length;i++){
-                
-                if(products[i].categoryOffer>=products[i].productOffer){
-                    let temp = (products[i].price*products[i].categoryOffer)/100
-                    let offerPrice = products[i].price-temp
-                    let updateProduct = await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(products[i]._id)},{$set:{offerPrice:offerPrice}})
-                    await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(products[i]._id)},{$set:{offer:products[i].categoryOffer}})
+            for (let i = 0; i < products.length; i++) {
+
+                if (products[i].categoryOffer >= products[i].productOffer) {
+                    let temp = (products[i].price * products[i].categoryOffer) / 100
+                    let offerPrice = products[i].price - temp
+                    let updateProduct = await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(products[i]._id) }, { $set: { offerPrice: offerPrice } })
+                    await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(products[i]._id) }, { $set: { offer: products[i].categoryOffer } })
                     resolve()
                 }
-                else if(products[i].categoryOffer<products[i].productOffer){
-                    let temp = (products[i].price*products[i].productOffer)/100
-                    let offerPrice = products[i].price-temp
-                    let updateProduct = await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(products[i]._id)},{$set:{offerPrice:offerPrice}})
-                    await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(products[i]._id)},{$set:{offer:products[i].productOffer}})
+                else if (products[i].categoryOffer < products[i].productOffer) {
+                    let temp = (products[i].price * products[i].productOffer) / 100
+                    let offerPrice = products[i].price - temp
+                    let updateProduct = await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(products[i]._id) }, { $set: { offerPrice: offerPrice } })
+                    await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(products[i]._id) }, { $set: { offer: products[i].productOffer } })
                     resolve()
                 }
             }
 
-            
+
         })
     },
-    addProdOffer:(prod)=>{
-        return new Promise(async(resolve,reject)=>{
-            await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(prod.product)},{$set:{productOffer:parseInt(prod.offerPercentage)}})
+    addProdOffer: (prod) => {
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(prod.product) }, { $set: { productOffer: parseInt(prod.offerPercentage) } })
 
-            let product = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:ObjectId(prod.product)})
-            if(product.productOffer>=product.categoryOffer){
-               let temp = (product.price*product.productOffer)/100
-               let offerPrice = product.price-temp
-               let updateProd = await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(prod.product)},{$set:{offerPrice:parseInt(offerPrice)}})
-               await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(prod.product)},{$set:{offer:parseInt(prod.offerPercentage)}})
-               resolve(updateProd)
+            let product = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({ _id: ObjectId(prod.product) })
+            if (product.productOffer >= product.categoryOffer) {
+                let temp = (product.price * product.productOffer) / 100
+                let offerPrice = product.price - temp
+                let updateProd = await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(prod.product) }, { $set: { offerPrice: parseInt(offerPrice) } })
+                await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(prod.product) }, { $set: { offer: parseInt(prod.offerPercentage) } })
+                resolve(updateProd)
             }
-            else if(product.productOffer<product.categoryOffer){
-                let temp = (product.price*product.categoryOffer)/100
-                let offerPrice = product.price-temp
-                let updateProd = await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(prod.product)},{$set:{offerPrice:parseInt(offerPrice)}})
-                await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(prod.product)},{$set:{offer:parseInt(product.categoryOffer)}})
+            else if (product.productOffer < product.categoryOffer) {
+                let temp = (product.price * product.categoryOffer) / 100
+                let offerPrice = product.price - temp
+                let updateProd = await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(prod.product) }, { $set: { offerPrice: parseInt(offerPrice) } })
+                await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(prod.product) }, { $set: { offer: parseInt(product.categoryOffer) } })
                 resolve(updateProd)
             }
         })
     },
-    deleteOffer:(prodId)=>{
-        return new Promise(async(resolve,reject)=>{
-            await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(prodId)},{$set:{productOffer:parseInt(0)}})
-            let product = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:ObjectId(prodId)})
-            if(product.productOffer==0&&product.categoryOffer==0){
-               await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(prodId)},{$set:{
-                offerPrice:product.price,
-                offer:parseInt(0)
-               }})
-               resolve()
+    deleteOffer: (prodId) => {
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(prodId) }, { $set: { productOffer: parseInt(0) } })
+            let product = await db.get().collection(collection.PRODUCT_COLLECTION).findOne({ _id: ObjectId(prodId) })
+            if (product.productOffer == 0 && product.categoryOffer == 0) {
+                await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(prodId) }, {
+                    $set: {
+                        offerPrice: product.price,
+                        offer: parseInt(0)
+                    }
+                })
+                resolve()
             }
-            else if(product.productOffer<product.categoryOffer){
-                let temp = (product.price*product.categoryOffer)/100
-                let offerPrice = product.price-temp
-                let updateProd = await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(product._id)},{$set:{offerPrice:parseInt(offerPrice)}})
-                await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(product._id)},{$set:{offer:parseInt(product.categoryOffer)}})
+            else if (product.productOffer < product.categoryOffer) {
+                let temp = (product.price * product.categoryOffer) / 100
+                let offerPrice = product.price - temp
+                let updateProd = await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(product._id) }, { $set: { offerPrice: parseInt(offerPrice) } })
+                await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(product._id) }, { $set: { offer: parseInt(product.categoryOffer) } })
                 resolve(updateProd)
             }
         })
     },
-    deleteCatOffer:(catId)=>{
-        return new Promise(async(resolve,reject)=>{
-            await db.get().collection(collection.CATEGORY_COLLECTION).updateMany({_id:ObjectId(catId)},{$set:{categoryOffer:parseInt(0)}})
-            await db.get().collection(collection.PRODUCT_COLLECTION).updateMany({category:catId},{$set:{categoryOffer:parseInt(0)}})
-            let products = await db.get().collection(collection.PRODUCT_COLLECTION).find({category:catId}).toArray()
+    deleteCatOffer: (catId) => {
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(collection.CATEGORY_COLLECTION).updateMany({ _id: ObjectId(catId) }, { $set: { categoryOffer: parseInt(0) } })
+            await db.get().collection(collection.PRODUCT_COLLECTION).updateMany({ category: catId }, { $set: { categoryOffer: parseInt(0) } })
+            let products = await db.get().collection(collection.PRODUCT_COLLECTION).find({ category: catId }).toArray()
 
-            for (let i =0;i<products.length;i++){
-                
-                if(products[i].categoryOffer==0&&products[i].productOffer==0){
-                    
-                    let updateProduct = await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(products[i]._id)},{$set:{offerPrice:products[i].price}})
-                    await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(products[i]._id)},{$set:{offer:parseInt(0)}})
+            for (let i = 0; i < products.length; i++) {
+
+                if (products[i].categoryOffer == 0 && products[i].productOffer == 0) {
+
+                    let updateProduct = await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(products[i]._id) }, { $set: { offerPrice: products[i].price } })
+                    await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(products[i]._id) }, { $set: { offer: parseInt(0) } })
                     resolve()
                 }
-                else if(products[i].categoryOffer<products[i].productOffer){
-                    let temp = (products[i].price*products[i].productOffer)/100
-                    let offerPrice = products[i].price-temp
-                    let updateProduct = await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(products[i]._id)},{$set:{offerPrice:offerPrice}})
-                    await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:ObjectId(products[i]._id)},{$set:{offer:products[i].productOffer}})
+                else if (products[i].categoryOffer < products[i].productOffer) {
+                    let temp = (products[i].price * products[i].productOffer) / 100
+                    let offerPrice = products[i].price - temp
+                    let updateProduct = await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(products[i]._id) }, { $set: { offerPrice: offerPrice } })
+                    await db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: ObjectId(products[i]._id) }, { $set: { offer: products[i].productOffer } })
                     resolve()
                 }
             }
-            
+
         })
 
+    },
+    addCoupon: (coupon) => {
+        return new Promise((resolve, reject) => {
+            coupon.expiryDate = new Date(coupon.expiryDate)
+            coupon.offerPercentage = parseInt(coupon.offerPercentage)
+            db.get().collection(collection.COUPON_COLLECTION).insertOne(coupon).then(() => {
+                resolve()
+            })
+        })
+    },
+    listCoupon: () => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.COUPON_COLLECTION).find().toArray().then((response) => {
+                resolve(response)
+            })
+        })
+    },
+    deleteCoupon:(couponId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.COUPON_COLLECTION).deleteOne({_id:ObjectId(couponId)}).then(()=>{
+                resolve()
+            })
+        })
+    },
+    applyCoupon:(coupon)=>{
+        return new Promise(async(resolve,reject)=>{
+            
+            let couponDetails = await db.get().collection(collection.COUPON_COLLECTION).findOne({expiryDate:{$gte:new Date()},couponCode:coupon.couponCode})
+            console.log('couponDetails',couponDetails,'coupon',coupon);
+            if(couponDetails){
+                let total = {}
+                let temp = (coupon.total*couponDetails.offerPercentage)/100
+                if(temp>2500){
+                    temp = 2500
+                }
+                console.log(temp);
+                total.total = coupon.total-temp
+               
+                console.log(total.total,'hiiiiiiiiiefwrebfdreqrgfw');
+                total.offer = couponDetails.offerPercentage
+                total.status = true
+                resolve(total)
+            }
+            else{
+                let total = {}
+                total.expire = true
+               resolve(total)
+            }
+        })
     }
 }
