@@ -1,3 +1,5 @@
+
+
 const imagebox1 = document.getElementById('image-box1')
     const crop_btn1 = document.getElementById('crop-btn1')
     const input1 = document.getElementById('id_image1')
@@ -278,3 +280,5 @@ const imagebox1 = document.getElementById('image-box1')
             })
         })
     })
+
+

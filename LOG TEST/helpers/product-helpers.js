@@ -277,10 +277,7 @@ module.exports = {
                 if(temp>2500){
                     temp = 2500
                 }
-                console.log(temp);
                 total.total = coupon.total-temp
-               
-                console.log(total.total,'hiiiiiiiiiefwrebfdreqrgfw');
                 total.offer = couponDetails.offerPercentage
                 total.status = true
                 resolve(total)

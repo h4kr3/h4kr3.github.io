@@ -521,3 +521,17 @@ input::placeholder {
 .btnpwd:hover{
   color: #d91aff;
 }
+
+#image-previews img {
+  width: 100px;
+  height: 100px;
+}
+
+
+.file-drop-area label {
+  display: block;
+  padding: 2em;
+  background: #eee;
+  text-align: center;
+  cursor: pointer;
+}

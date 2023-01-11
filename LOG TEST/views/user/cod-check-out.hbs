@@ -96,13 +96,18 @@
             </div>
             <div class="card mt-3" style="width:400px;">
                 <div class="card-body text-center">
+                    {{#if response.status}}
+                    <span class="text-center mb-2 text-success">COUPON APPLIED</span>
+                    {{else}}
                     {{#if response.expire}}
                  <span class="text-center mb-2 text-danger">COUPON CODE IS NOT AVAILABLE</span><br>
                 
                 {{/if}}
+                
                     <span class="text-uppercase">if you have any coupon add here</span>
                     <button type="button" class="p-2 w-50 btn text-dark" id="addcategory" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop">ADD COUPON</button>
+                {{/if}}
                 </div>
             </div>
         </div>
@@ -248,7 +253,4 @@
 
 
     }
-
-
-
 </script>

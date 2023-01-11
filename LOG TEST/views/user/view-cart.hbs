@@ -43,7 +43,11 @@
                     <th scope="row"><img src="{{this.product.image.[0]}}" alt="" style="width:200px;"></th>
                     <td style="color:rgb(255, 8, 251);">{{this.product.productName}}</td>
                     <td style="color:rgb(236, 11, 187);">{{this.product.brand}}</td>
+                    {{#if this.product.offer}}
+                    <td style="color:rgb(255, 8, 251);"><span class="text-dark" style="text-decoration:line-through;">{{this.product.price}}</span> <span>{{this.product.offer}}% offer apllied</span><br>{{this.product.offerPrice}}</td>
+                    {{else}}
                     <td style="color:rgb(255, 8, 251);">{{this.product.offerPrice}}</td>
+                    {{/if}}
                     <td style="color:rgb(3, 3, 3);"><button class="btn btn-dark mx-2"
                         onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{this.product.quantity}}','{{user}}',-1)" id="minus{{this.product._id}}">-</button><span
                         id="{{this.product._id}}">{{this.quantity}}</span><button class=" mx-2 btn btn-dark"

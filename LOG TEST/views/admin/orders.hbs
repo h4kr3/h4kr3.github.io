@@ -22,6 +22,7 @@
         </thead>
         <tbody>
           {{#each orders}}
+          {{#if this.paymentMethod}}
           <tr>
             <td class="text-uppercase text-center">{{this.date}}</td>
             <td class="text-uppercase text-center" style="font-weight:800;color:rgb(255, 255, 255);font-size:20px">
@@ -52,6 +53,7 @@
             </td>
 
           </tr>
+          {{/if}}
           {{/each}}
 
         </tbody>

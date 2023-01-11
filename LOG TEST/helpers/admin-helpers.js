@@ -54,8 +54,8 @@ module.exports = {
             totalAmount.cod = await db.get().collection(collection.ORDER_COLLLECTION).aggregate([
                 {
                     $match:{
-                        'status': 'delivered', 
-                        'paymentMethod': 'cod'
+                        'status':'delivered', 
+                        'paymentMethod':'cod'
                       }
                 },{
                     $group: {

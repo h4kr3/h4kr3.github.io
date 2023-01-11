@@ -24,6 +24,7 @@
       </thead>
       <tbody class="">
         {{#each orders}}
+        {{#if this.paymentMethod}}
           <tr class="">
             <td class="text-uppercase text-center ">{{this.date}}</td>
             <td class="text-uppercase text-center " style="font-weight:800;color:rgb(255, 9, 218);font-size:17px">RS. {{this.totalAmount}}.00</td>
@@ -43,6 +44,7 @@
           </td>
 
           </tr>
+        {{/if}}
         {{/each}}
 
       </tbody>

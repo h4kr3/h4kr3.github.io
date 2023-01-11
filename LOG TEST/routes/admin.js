@@ -16,7 +16,6 @@ upload = multer({
     let ext = path.extname(file.originalname)
     if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png" && ext !== ".webp") {
       cb(new Error("File type is not supported"), false)
-      console.log('Its workinggggggggggggggggggggg');
       return
     }
     cb(null, true)
@@ -32,6 +31,7 @@ router.get('/admin-land',adminloggedout,async(req,res)=>{
   if(req.session.adminLoggedIn){
     let totalAmount = await adminHelper.getTotalAmount()
     let data = await adminHelper.dashBoard()
+    console.log(totalAmount);
     res.render('admin/admin-land',{admin:true,totalAmount,data})
   }
 })
@@ -74,7 +74,7 @@ router.get('/category',adminloggedout,(req,res)=>{
 //ADD PRODUCT
 
 
-router.post('/add-products', upload.fields([
+router.post('/add-products',  upload.fields([
   { name: 'image1', maxCount: 1 },
   { name: 'image2', maxCount: 1 },
   { name: 'image3', maxCount: 1 },

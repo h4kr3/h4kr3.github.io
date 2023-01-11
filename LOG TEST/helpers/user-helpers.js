@@ -297,7 +297,7 @@ module.exports = {
                 userId: ObjectId(order.userId),
                 paymentMethod: order.paymentMethod,
                 products: product.products,
-                totalAmount: order.total,
+                totalAmount:parseInt( order.total),
                 status:status,
                 date: new Date(),
                 btn: true,
@@ -331,7 +331,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let orders = await db.get().collection(collection.ORDER_COLLLECTION).find({
                 userId: ObjectId(userId)
-            }).toArray()
+            }).sort({date:-1}).toArray()
             resolve(orders)
         })
     },
@@ -390,7 +390,7 @@ module.exports = {
     },
     getAllOrders: () => {
         return new Promise(async (resolve, reject) => {
-            let orders = await db.get().collection(collection.ORDER_COLLLECTION).find().toArray()
+            let orders = await db.get().collection(collection.ORDER_COLLLECTION).find().sort({date:-1}).toArray()
             console.log(orders);
             resolve(orders)
         })
