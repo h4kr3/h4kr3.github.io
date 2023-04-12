@@ -1,0 +1,13 @@
+.todo-filter {
+    padding: 10px;
+  }
+  
+  .todo-filter__control label {
+    font-weight: bold;
+  }
+  
+  .todo-filter__control select {
+    margin-left: 10px;
+    padding: 5px;
+  }
+  

@@ -1,0 +1,10 @@
+.todo-list {
+  color: rgba(245, 3, 3, 0.975);
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+}
+.todo-list__date{
+  font-size: 30px;
+  font-weight: 800;
+}

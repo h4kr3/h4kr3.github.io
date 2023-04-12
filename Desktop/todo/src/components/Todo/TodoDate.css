@@ -1,0 +1,10 @@
+.date__month{
+    font-size: 25px;
+}
+.date__day{
+    color: black;
+    font-size: 40px;
+}
+.date__year{
+    font-size: 20px;
+}
